@@ -1,5 +1,6 @@
 /reports/*
-/data/*
+/data/raw/*
+data/processed/*
 
 !/data/.gitkeep
 !/reports/.gitkeep
