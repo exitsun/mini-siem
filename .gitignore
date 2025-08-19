@@ -2,4 +2,5 @@ reports/
 bin/
 lib/
 lib64/
-data/
+data/processed/
+data/raw/
