@@ -8,9 +8,9 @@ from mini_siem.report import write_reports
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--path", required=True, help="Folder z plikami logów (json/ndjson/csv/log)")
-    ap.add_argument("--rules", default="rules")
-    ap.add_argument("--out", default="reports")
+    ap.add_argument("--path", required=True, help="Folder with log files (json/ndjson/csv/log)")
+    ap.add_argument("--rules", default="rules", help="Folder with rules (yaml)")
+    ap.add_argument("--out", default="reports", help="Output folder for reports. Default: reports/")
     args = ap.parse_args()
 
     raw = load_folder(args.path)
