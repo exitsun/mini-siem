@@ -1,6 +1,14 @@
 reports/
-bin/
-lib/
-lib64/
 data/processed/
 data/raw/
+.venv/
+.env
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.log
+*.egg
+*.egg-info/
