@@ -5,7 +5,7 @@ when:
   source: powershell.4104
   filter:
     pattern: "(?i)EncodedCommand|-enc"
-group_by: user
+group_by: host # ← was: user
 window: "30m"
 threshold: 1
 reason: "PS EncodedCommand"

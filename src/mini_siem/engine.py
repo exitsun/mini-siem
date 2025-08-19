@@ -1,5 +1,6 @@
 import yaml, pandas as pd
 from datetime import timedelta
+from pathlib import Path  # ← dodaj
 
 def parse_window(s: str) -> timedelta:
     n, u = int(s[:-1]), s[-1].lower()
@@ -8,6 +9,7 @@ def parse_window(s: str) -> timedelta:
 def run_rule(df: pd.DataFrame, rule: dict) -> pd.DataFrame:
     data = df.copy()
 
+    # --- filtr po źródle i filtrze ---
     src = rule.get("when", {}).get("source")
     if src:
         data = data[data["source"] == src]
@@ -18,18 +20,36 @@ def run_rule(df: pd.DataFrame, rule: dict) -> pd.DataFrame:
     if "pattern" in flt:
         data = data[data["message"].fillna("").str.contains(flt["pattern"], regex=True, na=False)]
 
+    # --- KLUCZ: wypełnij brakujące timestampy, zamiast je wycinać ---
+    if data["timestamp"].isna().any():
+        na_mask = data["timestamp"].isna()
+        if "__sourcefile" in data.columns:
+            def _mtime_to_ts(p):
+                try:
+                    return pd.to_datetime(Path(p).stat().st_mtime, unit="s")
+                except Exception:
+                    return pd.NaT
+            fill = data.loc[na_mask, "__sourcefile"].map(_mtime_to_ts)
+            data.loc[na_mask, "timestamp"] = fill
+        # ostateczny fallback: teraz
+        data["timestamp"] = data["timestamp"].fillna(pd.Timestamp.utcnow())
+
+    # --- grupowanie: uzupełnij NaN na kluczu grupy ---
     grp = rule.get("group_by", "user")
-    if grp not in data.columns:
+    if grp in data.columns:
+        data[grp] = data[grp].fillna("n/a")
+    else:
         data[grp] = "n/a"
 
-    data = data.dropna(subset=["timestamp"]).sort_values("timestamp")
+    data = data.sort_values("timestamp")
 
     win = parse_window(rule.get("window", "10m"))
     thr = int(rule.get("threshold", 1))
 
     findings = []
-    for key, g in data.groupby(grp):
-        if g.empty: continue
+    for key, g in data.groupby(grp, dropna=False):
+        if g.empty:
+            continue
         t_end = g["timestamp"].max()
         gwin = g[g["timestamp"] >= t_end - win]
         if len(gwin) >= thr:
