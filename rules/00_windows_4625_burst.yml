@@ -1,0 +1,11 @@
+id: windows-4625-burst
+name: Windows Failed Logons Burst
+severity: Medium
+when:
+  source: windows.security
+  filter:
+    event_id: 4625
+group_by: user
+window: "10m"
+threshold: 5
+reason: "MultipleFailedLogons"

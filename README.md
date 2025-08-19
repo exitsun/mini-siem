@@ -1,2 +1,5 @@
 # mini-siem
-Multi platform SIEM tool 
+
+Minimal SIEM pipeline: **ingest → normalize → detections → CSV/HTML report**.
+
+## Quick start

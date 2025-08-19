@@ -1,0 +1,11 @@
+id: powershell-encoded
+name: Encoded PowerShell
+severity: High
+when:
+  source: powershell.4104
+  filter:
+    pattern: "(?i)EncodedCommand|-enc"
+group_by: user
+window: "30m"
+threshold: 1
+reason: "PS EncodedCommand"

@@ -1,0 +1,15 @@
+[project]
+name = "mini-siem"
+version = "0.1.0"
+description = "Tiny file-based SIEM: ingest -> normalize -> detect -> report"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["pandas","pyyaml","jinja2","python-dateutil"]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["mini_siem*"]
