@@ -1,6 +1,9 @@
-reports/
-data/processed/
-data/raw/
+/reports/*
+/data/*
+
+!/data/.gitkeep
+!/reports/.gitkeep
+
 .venv/
 .env
 *.pyc
