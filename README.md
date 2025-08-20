@@ -6,6 +6,8 @@ Minimal SIEM pipeline: **ingest → normalize → detections → CSV/HTML report
 
 ### download project
 
+    git clone https://github.com/exitsun/mini-siem
+
 ### create a virtual environment outside the src folder
 
     python3 -m venv .venv
@@ -21,4 +23,4 @@ Minimal SIEM pipeline: **ingest → normalize → detections → CSV/HTML report
 
 ## Example report
 
-[image]: https://github.com/exitsun/mini-siem/blob/main/assets/example-report-html.png
+![image](https://github.com/exitsun/mini-siem/blob/main/assets/example-report-html.png "Example Html Report")
