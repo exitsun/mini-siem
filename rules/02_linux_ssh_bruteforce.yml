@@ -1,0 +1,11 @@
+id: linux-ssh-brute
+name: SSH Brute Force (journald)
+severity: High
+when:
+  source: linux.ssh
+  filter:
+    pattern: "(?i)Failed password"
+group_by: src_ip
+window: "5m"
+threshold: 10
+reason: "SSH BruteForce"

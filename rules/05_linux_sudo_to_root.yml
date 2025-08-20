@@ -1,0 +1,11 @@
+id: linux-sudo-to-root
+name: Sudo to root
+severity: High
+when:
+  source: linux.sudo
+  filter:
+    pattern: "(?i)USER=root|session opened for user root"
+group_by: user
+window: "10m"
+threshold: 1
+reason: "Sudo session to root"

@@ -1,0 +1,11 @@
+id: linux-sudo-fail
+name: Sudo Authentication Failures
+severity: Medium
+when:
+  source: linux.sudo
+  filter:
+    pattern: "(?i)(authentication failure|conversation failed|auth could not identify password)"
+group_by: ["user", "host"] # ← nowy tryb
+window: "10m"
+threshold: 3
+reason: "Repeated sudo authentication failures"

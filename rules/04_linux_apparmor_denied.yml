@@ -1,0 +1,11 @@
+id: linux-apparmor-denied
+name: AppArmor DENIED
+severity: Medium
+when:
+  source: linux.apparmor
+  filter:
+    pattern: 'apparmor="DENIED"'
+group_by: ["user", "host"] # użyje usera, a jeśli brak – hosta
+window: "30m"
+threshold: 1
+reason: "AppArmor denied access"
