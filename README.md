@@ -30,3 +30,9 @@ Minimal SIEM pipeline: **ingest → normalize → detections → CSV/HTML report
 ## Example report
 
 ![image](https://github.com/exitsun/mini-siem/blob/main/assets/example-report-html.png "Example Html Report")
+
+### TODO
+
+- add tests
+- add workflow file
+- add badges + license
